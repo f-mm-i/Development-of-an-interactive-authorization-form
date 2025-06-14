@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Интерактивная форма авторизации</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Снежинки/конфетти генерируются скриптом -->
+  <header class="site-header">
+    <h1 class="logo" tabindex="0">Добро пожаловать</h1>
+    <nav aria-label="Основная навигация">
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link">Главная</a></li>
+        <li><a href="#" class="nav-link">О нас</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="login-section" aria-labelledby="login-heading">
+      <h2 id="login-heading" class="visually-hidden">Вход в личный кабинет</h2>
+
+      <form id="login-form" class="login-form" novalidate>
+        <fieldset>
+          <legend class="visually-hidden">Авторизация</legend>
+
+          <div class="social-login">
+            <button type="button" class="btn social-btn" data-network="vk" aria-label="Войти через VK">VK</button>
+            <button type="button" class="btn social-btn" data-network="google" aria-label="Войти через Google">G</button>
+            <button type="button" class="btn social-btn" data-network="facebook" aria-label="Войти через Facebook">F</button>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Электронная почта</label>
+            <input id="email" name="email" type="email" placeholder="example@mail.com" required autocomplete="username" />
+          </div>
+
+          <div class="form-field">
+            <label for="password">Пароль</label>
+            <input id="password" name="password" type="password" placeholder="Введите пароль" required minlength="8" autocomplete="current-password" aria-describedby="password-help" />
+            <small id="password-help" class="help-text">Минимум 8 символов, буквы и цифры</small>
+          </div>
+
+          <div class="form-extras">
+            <label class="remember-me">
+              <input id="remember" type="checkbox" />
+              <span>Запомнить меня</span>
+            </label>
+
+            <button id="submit-btn" class="btn primary-btn" type="submit">
+              <span class="btn-text">Войти</span>
+              <span class="loader" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div id="message" class="message" aria-live="polite"></div>
+        </fieldset>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Интерактивная форма авторизации</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html> 
