@@ -11,9 +11,9 @@
   --accent: #4e8cff;
   --error: #ff4e4e;
   --success: #4eff88;
-  --bg-start: #0f2027;
-  --bg-mid: #203a43;
-  --bg-end: #2c5364;
+  --bg-start: #3a1c71; /* насыщенный фиолетовый */
+  --bg-mid: #d76d77;  /* переход к малиновому */
+  --bg-end: #ffaf7b;  /* мягкий оранжевый */
   --text: #ffffff;
   --radius: 8px;
   --transition: 0.3s ease;
@@ -73,6 +73,12 @@ body {
   animation: gradientBG 15s ease infinite;
   display: flex;
   flex-direction: column;
+  /* Главный контент растягивается, подвал всегда прижат к низу */
+}
+
+/* Делаем основной контент гибким, чтобы footer был внизу */
+main {
+  flex: 1;
 }
 
 .visually-hidden {
@@ -126,6 +132,12 @@ body {
   width: 100%;
 }
 
+/* Переопределяем футер, чтобы текст был строго по центру */
+.site-footer {
+  justify-content: center !important; /* перебиваем прежнее значение */
+  text-align: center;
+}
+
 /* ====== Основная секция ====== */
 .login-section {
   flex: 1;
@@ -136,22 +148,69 @@ body {
 
 /* ====== Форма ====== */
 .login-form {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.18); /* делаем форму чуть более заметной */
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Убираем белую рамку */
+  border: 1px solid rgba(255, 255, 255, 0.25); /* лёгкое обрамление для контраста */
   border-radius: var(--radius);
-  padding: 2rem;
-  width: min(400px, 100%);
+  padding: 2rem 2rem 3rem; /* добавляем больше пространства снизу */
+  width: min(420px, 90%);
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 3rem; /* ещё больше пространства между блоками формы */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Убираем рамку у fieldset внутри формы */
+.login-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Заголовок формы */
+.form-title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: -0.4rem; /* поднимаем заголовок ближе к верхнему краю формы */
+  margin-bottom: 1.6rem; /* небольшой отступ вниз */
+}
+
+/* Cсылка регистрации */
+.register {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.register-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+}
+
+.register-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width var(--transition);
+}
+
+.register-link:hover::after,
+.register-link:focus::after {
+  width: 100%;
 }
 
 /* ====== Социальные кнопки ====== */
 .social-login {
   display: flex;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .btn {
@@ -171,6 +230,24 @@ body {
   transform: translateY(-2px);
 }
 
+/* Придаём соц-кнопкам современный вид */
+.social-btn {
+  flex: 1 1 0;
+  height: 48px;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.social-btn:hover,
+.social-btn:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Цвета */
 .social-btn[data-network="vk"] {
   background: #4c75a3;
 }
@@ -183,10 +260,16 @@ body {
   background: #3b5998;
 }
 
+.social-btn[data-network] {
+  border: none;
+  color: #fff;
+}
+
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.4rem; /* увеличиваем расстояние между label и input */
+  margin-bottom: 1rem;
 }
 
 .form-field input {
@@ -216,8 +299,10 @@ body {
 /* ====== Доп элементы формы ====== */
 .form-extras {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1.8rem; /* чуть больше отступов под чекбокс и кнопку */
   align-items: center;
+  margin-top: 0.5rem;
 }
 
 .remember-me {
@@ -225,6 +310,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   user-select: none;
+  align-self: flex-start;
 }
 
 .remember-me input {
@@ -236,7 +322,15 @@ body {
 .primary-btn {
   position: relative;
   background: var(--accent);
-  min-width: 120px;
+  min-width: 140px;
+  align-self: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.primary-btn:hover,
+.primary-btn:focus {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .loader {

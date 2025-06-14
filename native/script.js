@@ -80,11 +80,11 @@ const toggleLoading = (isLoading) => {
   submitBtn.disabled = isLoading;
 };
 
-/* ========= Снежинки / конфетти ========= */
+/* ========= Арбузы ========= */
 const createSnowflake = () => {
   const snowflake = document.createElement("span");
   snowflake.className = "snowflake";
-  snowflake.textContent = "❄";
+  snowflake.textContent = "🍉";
   snowflake.style.left = Math.random() * 100 + "vw";
   snowflake.style.animationDuration = 5 + Math.random() * 5 + "s";
   snowflake.style.opacity = Math.random();
@@ -92,28 +92,10 @@ const createSnowflake = () => {
   setTimeout(() => snowflake.remove(), 10000);
 };
 
-// каждые 300мс добавляем снежинку, если вкладка активна
+// каждые 300мс добавляем смайл, если вкладка активна
 setInterval(() => {
   if (document.hasFocus()) createSnowflake();
 }, 300);
-
-/* ========= Пасхалка ========= */
-function createConfettiPiece() {
-  const piece = document.createElement("span");
-  piece.className = "snowflake"; // переиспользуем стили снежинки
-  piece.textContent = "🎉";
-  piece.style.left = Math.random() * 100 + "vw";
-  piece.style.animationDuration = 3 + Math.random() * 3 + "s";
-  piece.style.fontSize = "1.2rem";
-  document.body.appendChild(piece);
-  setTimeout(() => piece.remove(), 8000);
-}
-
-document.querySelector(".logo").addEventListener("click", () => {
-  for (let i = 0; i < 30; i++) {
-    createConfettiPiece();
-  }
-});
 
 /* ========= Демонстрация стрелочной функции ========= */
 emailInput.addEventListener("input", () => {
