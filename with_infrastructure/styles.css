@@ -1,0 +1,425 @@
+/* ====== Базовый сброс и переменные ====== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --accent: #4e8cff;
+  --error: #ff4e4e;
+  --success: #4eff88;
+  --bg-start: #3a1c71; /* насыщенный фиолетовый */
+  --bg-mid: #d76d77; /* переход к малиновому */
+  --bg-end: #ffaf7b; /* мягкий оранжевый */
+  --text: #ffffff;
+  --radius: 8px;
+  --transition: 0.3s ease;
+  font-size: 16px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ====== Анимации ====== */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+/* ====== Глобальные стили ====== */
+body {
+  min-height: 100vh;
+  color: var(--text);
+  background: linear-gradient(
+    45deg,
+    var(--bg-start),
+    var(--bg-mid),
+    var(--bg-end)
+  );
+  background-size: 300% 300%;
+  animation: gradientBG 15s ease infinite;
+  display: flex;
+  flex-direction: column;
+  /* Главный контент растягивается, подвал всегда прижат к низу */
+}
+
+/* Делаем основной контент гибким, чтобы footer был внизу */
+main {
+  flex: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ====== Header и Footer ====== */
+.site-header,
+.site-footer {
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: var(--text);
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width var(--transition);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Переопределяем футер, чтобы текст был строго по центру */
+.site-footer {
+  justify-content: center !important; /* перебиваем прежнее значение */
+  text-align: center;
+}
+
+/* ====== Основная секция ====== */
+.login-section {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+/* ====== Форма ====== */
+.login-form {
+  background: rgba(255, 255, 255, 0.18); /* делаем форму чуть более заметной */
+  backdrop-filter: blur(10px);
+  /* Убираем белую рамку */
+  border: 1px solid rgba(255, 255, 255, 0.25); /* лёгкое обрамление для контраста */
+  border-radius: var(--radius);
+  padding: 2rem 2rem 3rem; /* добавляем больше пространства снизу */
+  width: min(420px, 90%);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem; /* ещё больше пространства между блоками формы */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Убираем рамку у fieldset внутри формы */
+.login-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Заголовок формы */
+.form-title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: -0.4rem; /* поднимаем заголовок ближе к верхнему краю формы */
+  margin-bottom: 1.6rem; /* небольшой отступ вниз */
+}
+
+/* Cсылка регистрации */
+.register {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.register-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+}
+
+.register-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width var(--transition);
+}
+
+.register-link:hover::after,
+.register-link:focus::after {
+  width: 100%;
+}
+
+/* ====== Социальные кнопки ====== */
+.social-login {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  color: var(--text);
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.15);
+  transition:
+    background var(--transition),
+    transform var(--transition);
+}
+
+.btn:hover,
+.btn:focus {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Придаём соц-кнопкам современный вид */
+.social-btn {
+  flex: 1 1 0;
+  height: 48px;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.social-btn:hover,
+.social-btn:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Цвета */
+.social-btn[data-network='vk'] {
+  background: #4c75a3;
+}
+
+.social-btn[data-network='google'] {
+  background: #db4437;
+}
+
+.social-btn[data-network='facebook'] {
+  background: #3b5998;
+}
+
+.social-btn[data-network] {
+  border: none;
+  color: #fff;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem; /* увеличиваем расстояние между label и input */
+  margin-bottom: 1rem;
+}
+
+.form-field input {
+  padding: 0.75rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.form-field input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(78, 140, 255, 0.3);
+}
+
+.form-field input:invalid {
+  border-color: var(--error);
+  animation: shake 0.3s;
+}
+
+/* ====== Доп элементы формы ====== */
+.form-extras {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem; /* чуть больше отступов под чекбокс и кнопку */
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+  align-self: flex-start;
+}
+
+.remember-me input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+}
+
+.primary-btn {
+  position: relative;
+  background: var(--accent);
+  min-width: 140px;
+  align-self: center;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.primary-btn:hover,
+.primary-btn:focus {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.loader {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--text);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+.loading .btn-text {
+  opacity: 0;
+}
+
+.loading .loader {
+  display: inline-block;
+}
+
+/* ====== Сообщения ====== */
+.message {
+  min-height: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.message.error {
+  color: var(--error);
+}
+
+.message.success {
+  color: var(--success);
+}
+
+/* ====== Снежинки ====== */
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: #fff;
+  font-size: 1rem;
+  user-select: none;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+
+/* ====== Медиа-запросы ====== */
+@media (max-width: 1024px) {
+  /* Планшеты */
+  :root {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Мобильные устройства */
+  :root {
+    font-size: 14px;
+  }
+  .nav-list {
+    display: none; /* Прячем меню */
+  }
+  .login-form {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Маленькие смартфоны */
+  .login-form {
+    padding: 1rem;
+  }
+}
+
+/* ====== Селектор по тегу ====== */
+button {
+  font-family: inherit;
+}
